@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini SOC | Security Monitoring</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer
+            src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <h1>MINI <span>SOC</span></h1>
+            <p>Security Operations Center</p>
+        </div>
+
+        <div class="online-status">
+            <span class="status-dot"></span>
+            Monitoring Console
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="section-heading">
+            <div>
+                <h2>Security Overview</h2>
+                <p>Monitor security events and investigate suspicious activity.</p>
+            </div>
+
+            <div class="dashboard-status">● DASHBOARD ONLINE</div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <p>Total Events</p>
+                <h3 id="totalEvents">0</h3>
+                <span>Recorded security events</span>
+            </article>
+
+            <article class="stat-card">
+                <p>Failed Logins</p>
+                <h3 id="failedLogins">0</h3>
+                <span>Authentication failures</span>
+            </article>
+
+            <article class="stat-card">
+                <p>Critical Alerts</p>
+                <h3 id="criticalAlerts">0</h3>
+                <span>Require urgent review</span>
+            </article>
+
+            <article class="stat-card">
+                <p>Suspicious IPs</p>
+                <h3 id="suspiciousIPs">0</h3>
+                <span>IPs with high-severity events</span>
+            </article>
+        </section>
+
+        <section class="toolbar">
+            <div>
+                <h2>Security Events</h2>
+                <p>Review, filter, and investigate recorded events.</p>
+            </div>
+
+            <div class="actions">
+                <button id="simulateBtn" class="primary-btn">
+                    Generate Demo Events
+                </button>
+
+                <a href="/api/export" class="secondary-btn">
+                    Export CSV
+                </a>
+            </div>
+        </section>
+
+        <section class="filters">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search IP, username, event..."
+                aria-label="Search security events">
+
+            <select id="severityFilter" aria-label="Filter by severity">
+                <option value="">All Severities</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+                <option value="CRITICAL">Critical</option>
+            </select>
+        </section>
+
+        <section class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Source IP</th>
+                        <th>Event</th>
+                        <th>Username</th>
+                        <th>Severity</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="eventsTable">
+                    <tr>
+                        <td colspan="8">Loading security events...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="charts-grid">
+            <article class="chart-card">
+                <h2>Severity Distribution</h2>
+                <canvas id="severityChart"></canvas>
+            </article>
+
+            <article class="chart-card">
+                <h2>Events by Day</h2>
+                <canvas id="timelineChart"></canvas>
+            </article>
+        </section>
+
+        <p id="message" class="message" role="status"></p>
+
+        <footer>
+            Mini SOC Dashboard · Educational security monitoring prototype
+        </footer>
+    </main>
+</body>
+</html>
